@@ -13,7 +13,7 @@ public interface TaskService {
 	
 	public List<Task> getAllTasks();
 	public Task getTaskById(int taskId);
-	public boolean removeTaskById(int taskId);
+	public List<Task> removeTaskById(int taskId);
 	public boolean updateTaskStatus(Task task);
-	public boolean addTask (Task task);
+	public List<Task> addTask (Task task);
 }

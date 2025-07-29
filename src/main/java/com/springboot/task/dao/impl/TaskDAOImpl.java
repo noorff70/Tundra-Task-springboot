@@ -32,14 +32,14 @@ public class TaskDAOImpl implements TaskDAO{
 	}
 
 	@Override
-	public boolean removeTaskById(int taskId) {
+	public List<Task> removeTaskById(int taskId) {
 		
 		DbUtility db = new DbUtility();
 		return db.removeTask(taskId);
 	}
 
 	@Override
-	public boolean addTask(Task task) {
+	public List<Task> addTask(Task task) {
 		DbUtility db = new DbUtility();
 		return db.addTask(task);
 	}

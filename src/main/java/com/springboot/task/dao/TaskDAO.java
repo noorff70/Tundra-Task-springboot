@@ -17,7 +17,7 @@ public interface TaskDAO {
 	
 	public List<Task> getAllTasks();
 	public Task getTaskById(int taskId);
-	public boolean removeTaskById(int taskId);
-	public boolean addTask(Task task);
+	public List<Task> removeTaskById(int taskId);
+	public List<Task> addTask(Task task);
 	public boolean updateStatus(Task task);
 }

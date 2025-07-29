@@ -3,6 +3,7 @@ package com.springboot.task.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.springboot.task.service.TaskService;
  */
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class TaskController {
 	
 	@Autowired
@@ -57,10 +59,9 @@ public class TaskController {
 	 */
 	
 	@PostMapping("/removeTask")
-	public boolean removeTask(@RequestBody int id) {
+	public List<Task> removeTask(@RequestBody int id) {
 		
-		boolean isTaskRemoved =  taskService.removeTaskById(id);
-		return isTaskRemoved;
+		return  taskService.removeTaskById(id);
 	}
 	
 	/**
@@ -69,10 +70,9 @@ public class TaskController {
 	 * @return
 	 */
 	@PostMapping("/addTask")
-	public boolean addTask(@RequestBody Task task) {
+	public List<Task> addTask(@RequestBody Task task) {
 		
-		boolean isTaskAdded =  taskService.addTask(task);
-		return isTaskAdded;
+		return taskService.addTask(task);
 	}
 	
 	

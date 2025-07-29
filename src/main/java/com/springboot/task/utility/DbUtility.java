@@ -1,6 +1,7 @@
 package com.springboot.task.utility;
 
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.springboot.task.model.Task;
@@ -42,14 +43,25 @@ public class DbUtility {
 	 * @param task
 	 * @return
 	 */
-	public boolean addTask(Task task) {
+	public List<Task> addTask(Task task) {
 		DbUtility db = new DbUtility();
 		List<Task> taskList = db.getTaskList();
-		taskList.add(task);
+		boolean found = false;
+		for (int i=0; i< taskList.size(); i++) {
+			Task temp = taskList.get(i);
+			if (temp.getTaskId() == task.getTaskId()) {
+				taskList.set(i, task);
+				found = true;
+			}
+		}
+		if (found == false) {
+			taskList.add(task);
+		}
+		
 		
 		Db.getInstance().setTaskList(taskList);
 
-		return true;
+		return taskList;
 	}
 	
 	/**
@@ -57,22 +69,21 @@ public class DbUtility {
 	 * @param taskId
 	 * @return
 	 */
-	public boolean removeTask(int taskId) {
+	public List<Task> removeTask(int taskId) {
 		
-		List<Task> taskList = Db.getInstance().getTaskList();
-		int index =0;
-		boolean found = false;
-		for (; index< taskList.size(); index++) {
-			Task task = taskList.get(index);
-			if (task.getTaskId() == taskId) {
-				taskList.remove(index);
-				found = true;
-				break;
-			}
-		}
+		List<Task> taskList = getTaskList();
+		
+		Iterator<Task> iterator = taskList.iterator();
+        while (iterator.hasNext()) {
+            Task task = iterator.next();
+
+            if (task.getTaskId() == taskId) {
+                iterator.remove();
+            }
+        }
 		
 		Db.getInstance().setTaskList(taskList);
-		return found; 	
+		return taskList; 	
 	}
 	
 	/**
